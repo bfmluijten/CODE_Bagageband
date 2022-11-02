@@ -38,8 +38,9 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="{Binding VertrokkenVanuit}" HorizontalAlignment="Left" Width="400px" />
+                        <Label Content="{Binding VertrokkenVanuit}" HorizontalAlignment="Left" Width="300px" />
                         <Label Content="{Binding AantalKoffers }" ContentStringFormat="{}{0} koffers" HorizontalAlignment="Right" Width="100px" FontStyle="Italic"/>
+                        <Label Content="{Binding TimeWaiting }" ContentStringFormat="{}{0}" HorizontalAlignment="Right" Width="100px" FontStyle="Italic"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CODE_Bagageband.ViewModel
 {
-    public class VluchtViewModel : ViewModelBase
+    public class VluchtViewModel : ViewModelBase, IObserver<Vlucht>
     {
         private string _vertrokkenVanuit;
         public string VertrokkenVanuit
@@ -24,8 +24,17 @@ namespace CODE_Bagageband.ViewModel
             set { _aantalKoffers = value; RaisePropertyChanged("AantalKoffers"); }
         }
 
+        private TimeSpan _timeWaiting;
+        public TimeSpan TimeWaiting
+        {
+            get { return _timeWaiting; }
+            set { _timeWaiting = value; RaisePropertyChanged("TimeWaiting"); }
+        }
+
         public VluchtViewModel(Vlucht vlucht)
         {
+            vlucht.Subscribe(this);
+
             Update(vlucht);
             // TODO: Vlucht is straks observable, kunnen we daar niet op abonneren?
         }
@@ -35,6 +44,22 @@ namespace CODE_Bagageband.ViewModel
             // TODO: Dit mag natuurlijk naar de OnNext methode toe.
             VertrokkenVanuit = vlucht.VertrokkenVanuit;
             AantalKoffers = vlucht.AantalKoffers;
+            TimeWaiting = vlucht.TimeWaiting;
+        }
+
+        public void OnNext(Vlucht vlucht)
+        {
+            Update(vlucht);
+        }
+
+        public void OnError(Exception error)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnCompleted()
+        {
+            throw new NotImplementedException();
         }
     }
 }
