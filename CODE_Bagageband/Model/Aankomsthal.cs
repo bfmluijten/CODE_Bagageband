@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CODE_Bagageband.Model
 {
-    public class Aankomsthal
+    public class Aankomsthal: IObserver<Bagageband>
     {
         // TODO: Hier een ObservableCollection van maken, dan weten we wanneer er vluchten bij de wachtrij bij komen of afgaan.
         public List<Vlucht> WachtendeVluchten { get; private set; }
@@ -24,6 +24,11 @@ namespace CODE_Bagageband.Model
             Bagagebanden.Add(new Bagageband("Band 2", 60));
             // TODO: Als bagageband Observable is, gaan we subscriben op band 3 zodat we updates binnenkrijgen.
             Bagagebanden.Add(new Bagageband("Band 3", 90));
+
+            foreach(Bagageband band in Bagagebanden)
+            {
+                band.Subscribe(this);
+            }
         }
 
         public void NieuweInkomendeVlucht(string vertrokkenVanuit, int aantalKoffers)
@@ -49,6 +54,30 @@ namespace CODE_Bagageband.Model
 
                 legeBand.HandelNieuweVluchtAf(volgendeVlucht);
             }
+        }
+
+        public void OnNext(Bagageband band)
+        {
+            if (band.AantalKoffers == 0 && WachtendeVluchten.Any())
+            {
+                // TODO: Straks krijgen we een update van een bagageband. Dan hoeven we alleen maar te kijken of hij leeg is.
+                // Als dat zo is kunnen we vrijwel de hele onderstaande code hergebruiken en hebben we geen while meer nodig.
+
+                Vlucht volgendeVlucht = WachtendeVluchten.FirstOrDefault();
+                WachtendeVluchten.RemoveAt(0);
+
+                band.HandelNieuweVluchtAf(volgendeVlucht);
+            }
+        }
+
+        public void OnError(Exception error)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnCompleted()
+        {
+            throw new NotImplementedException();
         }
     }
 }
