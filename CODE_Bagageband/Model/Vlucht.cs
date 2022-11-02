@@ -20,13 +20,14 @@ namespace CODE_Bagageband.Model
 
             _waitingTimer = new Timer();
             _waitingTimer.Interval = 1000;
-            _waitingTimer.Tick += (sender, args) => TimeWaiting = TimeWaiting.Add(new TimeSpan(0, 0, 1));
             _waitingTimer.Tick += WeerEenSecondeVoorbij;
             _waitingTimer.Start();
         }
 
         private void WeerEenSecondeVoorbij(object sender, EventArgs e)
         {
+            TimeWaiting = TimeWaiting.Add(new TimeSpan(0, 0, 1));
+
             Notify(this);
         }
 
