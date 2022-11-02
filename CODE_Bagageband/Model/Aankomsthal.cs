@@ -39,21 +39,17 @@ namespace CODE_Bagageband.Model
             // Denk bijvoorbeeld aan: Bagageband legeBand = Bagagebanden.FirstOrDefault(b => b.AantalKoffers == 0);
 
             WachtendeVluchten.Add(new Vlucht(vertrokkenVanuit, aantalKoffers));
+
+            if (Bagagebanden.Any(bb => bb.AantalKoffers == 0))
+            {
+                Bagageband legeBand = Bagagebanden.FirstOrDefault(b => b.AantalKoffers == 0);
+
+                OnNext(legeBand);
+            }
         }
 
         public void WachtendeVluchtenNaarBand()
         {
-            while(Bagagebanden.Any(bb => bb.AantalKoffers == 0) && WachtendeVluchten.Any())
-            {
-                // TODO: Straks krijgen we een update van een bagageband. Dan hoeven we alleen maar te kijken of hij leeg is.
-                // Als dat zo is kunnen we vrijwel de hele onderstaande code hergebruiken en hebben we geen while meer nodig.
-                
-                Bagageband legeBand = Bagagebanden.FirstOrDefault(bb => bb.AantalKoffers == 0);
-                Vlucht volgendeVlucht = WachtendeVluchten.FirstOrDefault();
-                WachtendeVluchten.RemoveAt(0);
-
-                legeBand.HandelNieuweVluchtAf(volgendeVlucht);
-            }
         }
 
         public void OnNext(Bagageband band)
