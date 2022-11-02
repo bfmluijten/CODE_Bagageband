@@ -10,12 +10,12 @@ namespace CODE_Bagageband.Model
     public class Aankomsthal: IObserver<Bagageband>
     {
         // TODO: Hier een ObservableCollection van maken, dan weten we wanneer er vluchten bij de wachtrij bij komen of afgaan.
-        public List<Vlucht> WachtendeVluchten { get; private set; }
+        public ObservableCollection<Vlucht> WachtendeVluchten { get; private set; }
         public List<Bagageband> Bagagebanden { get; private set; }
 
         public Aankomsthal()
         {
-            WachtendeVluchten = new List<Vlucht>();
+            WachtendeVluchten = new ObservableCollection<Vlucht>();
             Bagagebanden = new List<Bagageband>();
 
             // TODO: Als bagageband Observable is, gaan we subscriben op band 1 zodat we updates binnenkrijgen.

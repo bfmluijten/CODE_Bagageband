@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 
 namespace CODE_Bagageband.ViewModel
 {
@@ -65,6 +66,7 @@ namespace CODE_Bagageband.ViewModel
 
             _aankomsthal = aankomsthal;
             // TODO: Hier kijken naar _aankomsthal.WachtendeVluchten.CollectionChanged en verversWachtendeVluchten weghalen.
+            _aankomsthal.WachtendeVluchten.CollectionChanged += names_CollectionChanged;
 
             Band1 = new BagagebandViewModel(_aankomsthal.Bagagebanden[0]);
             Band2 = new BagagebandViewModel(_aankomsthal.Bagagebanden[1]);
@@ -72,6 +74,18 @@ namespace CODE_Bagageband.ViewModel
 
             InitializeDefaultVluchten();
             VerversWachtendeVluchten(); 
+        }
+
+        private void names_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                WachtendeVluchten.Add(new VluchtViewModel(e.NewItems[0] as Vlucht));
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                WachtendeVluchten.RemoveAt(e.OldStartingIndex);
+            }
         }
 
         private void InitializeDefaultVluchten()
@@ -97,31 +111,10 @@ namespace CODE_Bagageband.ViewModel
 
         private void VerversWachtendeVluchten()
         {
-            // TODO: Deze methode is niet meer nodig als we naar een ObservableCollection kunnen kijken.
-            // Code snippet bij CollectionChanged:
-            /*
-             * if(e.Action == NotifyCollectionChangedAction.Add)
-             * {
-             *     WachtendeVluchten.Add(new VluchtViewModel(e.NewItems[0] as Vlucht));
-             * } else if(e.Action == NotifyCollectionChangedAction.Remove)
-             * {
-             *     WachtendeVluchten.RemoveAt(e.OldStartingIndex);
-             * }
-            */
-
-            WachtendeVluchten.Clear();
-            foreach (var vlucht in _aankomsthal.WachtendeVluchten)
-            {
-                WachtendeVluchten.Add(new VluchtViewModel(vlucht));
-            }
         }
 
         private void VerversBagagebanden()
         {
-            // TODO: Dit gaat straks vanzelf, deze hele methode kan dus weg.
-            Band1.Update(_aankomsthal.Bagagebanden[0]);
-            Band2.Update(_aankomsthal.Bagagebanden[1]);
-            Band3.Update(_aankomsthal.Bagagebanden[2]);
         }
 
         private void AddNieuweVlucht()
@@ -131,7 +124,7 @@ namespace CODE_Bagageband.ViewModel
                 _aankomsthal.NieuweInkomendeVlucht(NieuweVluchtVanaf, NieuweVluchtAantalKoffers);
 
                 // TODO: Dit gaat straks vanzelf, kan hier dus weg.
-                WachtendeVluchten.Add(new VluchtViewModel(new Vlucht(NieuweVluchtVanaf, NieuweVluchtAantalKoffers)));
+                // WachtendeVluchten.Add(new VluchtViewModel(new Vlucht(NieuweVluchtVanaf, NieuweVluchtAantalKoffers)));
 
                 NieuweVluchtAantalKoffers = 5;
                 NieuweVluchtVanaf = null;
