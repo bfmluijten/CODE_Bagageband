@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CODE_Bagageband.Model.Aankomsthal">
+    <Position X="1.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAIAAAACAAAIAAAAAAAAAAAAAAAAAQAAACAgAAAA=</HashCode>
+      <FileName>Model\Aankomsthal.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Bagagebanden" />
+      <Property Name="WachtendeVluchten" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CODE_Bagageband.Model.Bagageband">
+    <Position X="4" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABgAAAAAAIAAAAAgAIAgAgAA=</HashCode>
+      <FileName>Model\Bagageband.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CODE_Bagageband.Model.Vlucht">
+    <Position X="4" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAABgAAAAAAAAAEAAAAAABAAAg=</HashCode>
+      <FileName>Model\Vlucht.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CODE_Bagageband.ViewModel.BagagebandViewModel">
+    <Position X="11.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEQQAAAAAACAAAIAAAAABgAAAAAAAAAAAAAAIABAAAI=</HashCode>
+      <FileName>Presentation\ViewModel\BagagebandViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CODE_Bagageband.ViewModel.MainViewModel">
+    <Position X="8.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAACgAAABAAAAaAgAABAQAEABABQJAgABAAAAA=</HashCode>
+      <FileName>Presentation\ViewModel\MainViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_aankomsthal" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CODE_Bagageband.ViewModel.VluchtViewModel">
+    <Position X="6.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEQAAAQAAACAAAJAAAAAAgAAAAAAAAAEAAAAAABAAAg=</HashCode>
+      <FileName>Presentation\ViewModel\VluchtViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
